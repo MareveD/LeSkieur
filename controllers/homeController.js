@@ -5,3 +5,5 @@ app.set('view engine', 'ejs');
 
 exports.getRedirect = (req, rep) => {rep.redirect("/");}
 exports.sendIndex = (request, response) => {response.render("index");};
+exports.sendSignup = (request, response) => {response.render("signup");};
+exports.sendSignin = (request, response) => {response.render("signin");};

@@ -146,3 +146,70 @@ footer div{
     border: none;
     width: 165px;
 }
+/* SIGN UP et SIGN IN */
+.titre-signup-signin{
+    font-family:GrandH;
+    color:var(--lightblue);
+}
+.flex-container-signup-signin{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+.height-signup{
+    height: 550px;
+}
+.height-signin{
+    height: 350px;
+}
+.box-signup-signin{
+    width: 27%;
+    backdrop-filter: var(--blur);
+    background-color:var(--cream-o);
+    border-radius: var(--radius);
+    display:flex;
+    flex-direction:column;
+    font-size: 18px;
+}
+.box-signup-signin label {
+    margin-bottom: 3px;
+    margin-left: 55px;
+    margin-top: 30px;
+    font-family:GrandH;
+    text-align: left;
+}
+.box-signup-signin input {
+    margin: 0px auto;
+    border-radius: var(--radius);
+    border: none;
+    width: 80%;
+    height: 35px;
+    font-family:GrandH;
+    font-size: 16px;
+    outline: 1px solid var(--darkblue);
+}
+.box-signup-signin input:focus {
+    outline: 4px solid var(--lightblue);
+}
+.box-signup-signin button{
+    font-family:GrandH;
+    margin: 40px auto 30px;
+    border-radius:var(--radius);
+    background-color:var(--darkblue);
+    color:var(--lightblue);
+    padding: 7px 0px;
+    border: none;
+    width: 80%;
+}
+.box-signup-signin p{
+    text-align: center;
+    font-family: GothamL;
+    font-size: 16px;
+}
+.box-signup-signin span{
+    color: dodgerblue;
+    font-weight: bold;
+}
+.box-signup-signin span a{
+    text-decoration: none;
+}

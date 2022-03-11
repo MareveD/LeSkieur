@@ -8,6 +8,8 @@ app.use(express.static(path.resolve(__dirname, "public")));
 
 app.get('/', homeController.sendIndex);
 app.get("/index", homeController.getRedirect);
+app.get("/signup", homeController.sendSignup);
+app.get("/signin", homeController.sendSignin);
 
 app.listen(3000,()=>{
     console.log("Le serveur est sur le port 3000");
