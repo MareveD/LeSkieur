@@ -175,10 +175,15 @@ footer div{
 }
 
 /* SIGN UP et SIGN IN */
+.flex-container-titre-form{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom: 12px;
+}
 .titre-signup-signin{
     font-family:GrandH;
     color:var(--lightblue);
-    margin-bottom: 50px;
 }
 .flex-container-signup-signin{
     display: flex;
