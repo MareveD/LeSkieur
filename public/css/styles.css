@@ -58,6 +58,31 @@ header{
     background-color:var(--bg-blur);
     text-align: center;
 }
+nav{
+    margin: 5px;
+    width: 100%;
+    display:flex;
+    justify-content:space-between;
+  }
+  nav .logo img{
+    height:100%;
+  }
+  nav .main_menu{
+    display: flex;
+    align-items: center;
+  }
+  nav .main_menu a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.search-nav{
+    height:25px !important;
+    background-color:var(--bg-blur) !important;
+    border-radius:var(--radius);
+    border:1px solid var(--lightblue)!important;
+    padding:5px !important;
+}
 #Layer_1{
     width: 75%;
 }
