@@ -128,7 +128,7 @@ footer div{
     align-items:center;
     justify-content:space-evenly;
 }
-.box-connexion div {
+.box-connexion div{
     font-family:GothamL;
     font-size:14px;
     color:var(--darkblue);
@@ -142,14 +142,18 @@ footer div{
     border-radius:var(--radius);
     background-color:var(--darkblue);
     color:var(--cream);
+    font-family:GrandH;
+    color:var(--lightblue);
     padding: 5px 0px;
     border: none;
     width: 165px;
 }
+
 /* SIGN UP et SIGN IN */
 .titre-signup-signin{
     font-family:GrandH;
     color:var(--lightblue);
+    margin-bottom: 50px;
 }
 .flex-container-signup-signin{
     display: flex;
@@ -212,4 +216,132 @@ footer div{
 }
 .box-signup-signin span a{
     text-decoration: none;
+}
+
+/* PROFIL */
+.pageProfilInside{
+    width:100%;
+    height:900px;
+}
+.box-connexion-profile-gauche{
+    border-radius: 25px 0px 0px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.box-connexion-profile-gauche img{
+    flex-shrink:0;
+    min-width:100%;
+    min-height:100%
+}
+.box-connexion-profile-droite{
+    backdrop-filter: var(--blur);
+    background-color:var(--cream-o);
+    border-radius: 0px 25px 25px 0px;
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-evenly;
+}
+.box-connexion-profile-droite h1 {
+    font-family:GrandH;
+    font-size: 2em;
+    text-transform:uppercase;
+    color:var(--darkblue);
+}
+.box-connexion-profile-droite h2 {
+    font-family:GrandH;
+    font-size: 1.5em;
+    text-transform:uppercase;
+    color:var(--gray);
+}
+.box-connexion-profile-droite h3 {
+    font-family:GrandH;
+    font-size: 1em;
+    text-transform:uppercase;
+    color:var(--gray);
+    font-weight: bold;
+}
+.box-connexion-profile-inside-description{
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    padding: 10px;
+    margin: 20px;
+}
+.box-connexion-profile-inside-description span{
+    text-align: center;
+    text-transform:uppercase;
+    font-family: GothamB;
+    font-size: 1em;
+    color:var(--darkblue);
+}
+.box-connexion-profile-inside-description p{
+    text-align: center;
+    font-family: GothamL;
+    font-size: 0.75em;
+    color:var(--darkblue);
+}
+.box-connexion-profile-inside-addon1{
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+}
+.box-connexion-profile-inside-addon1 span{
+    text-align: center;
+    text-transform:uppercase;
+    font-family: GothamB;
+    font-size: 1em;
+    color:var(--darkblue);
+}
+.box-connexion-profile-inside-addon1 p{
+    text-align: center;
+    font-family: GothamL;
+    font-size: 0.75em;
+    color:var(--darkblue);
+}
+.pageProfilInside img{
+    width: auto;
+    height: 100%;
+    border-radius: 25px 0px 0px 25px;
+    display: flex;
+    align-self: flex-start;
+}
+.icon-profile-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 30%;
+    height: auto;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    padding: 5px;
+}
+.icon-profile-section img{
+    margin: 0px 10px 0px 10px;
+    width: 35%;
+    height: auto;
+}
+.icon-profile-section-social{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+    height: auto;
 }
