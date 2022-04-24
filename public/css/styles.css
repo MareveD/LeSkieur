@@ -2,386 +2,498 @@
 @font-face {
     font-family: GothamL;
     src: url(../fonts/Gotham-Light.otf);
-}  
+}
+
 @font-face {
     font-family: GothamB;
     src: url(../fonts/GothamBold.ttf);
-}       
+}
+
 @font-face {
     font-family: GrandL;
     src: url(../fonts/SF\ Grandezza\ Light.ttf);
 }
+
 @font-face {
     font-family: GrandH;
     src: url(../fonts/SF\ Grandezza\ Heavy.ttf);
 }
+
 /*** CODE PRINCIPAL ***/
-:root{
+:root {
     --cream: #F7F6F0;
-    --cream-o:rgba(247, 246, 240, 0.6);
-    --lightblue:#A7CBD5;
-    --gray:#71777D;
-    --midblue:#4D4C59;
-    --darkblue:#362C36;
+    --cream-o: rgba(247, 246, 240, 0.6);
+    --lightblue: #A7CBD5;
+    --gray: #71777D;
+    --midblue: #4D4C59;
+    --darkblue: #362C36;
     --radius: 25px;
     --shadow: 0 0 4px var(--darkblue);
     --blur: blur(10px);
-    --bg-blur:rgba(247,246,240,0.01);
-    --bg-1:url(../img/bg-1.jpg);
-    --bg-2:url(../img/bg-2.jpg);
-    --logo:url(../img/logo.png);
+    --bg-blur: rgba(247, 246, 240, 0.01);
+    --bg-1: url(../img/bg-1.jpg);
+    --bg-2: url(../img/bg-2.jpg);
+    --logo: url(../img/logo.png);
 }
+
 /*** INITIAL PAGE ***/
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
+
 html {
     width: 100%;
     height: 100%;
 }
-body{
-    background-color: rgba(54, 44, 54, 0.3)!important;
+
+@media (min-width:1600px) {
+    .logo-container img {
+        width: 25%;
+    }
+
+    .box-connexion {
+        padding: 1.5rem;
+    }
+}
+
+body {
+    background-color: rgba(54, 44, 54, 0.3) !important;
     background-image: var(--bg-2);
     background-blend-mode: multiply;
-    width:100%;
-    height:100%;
-    background-size: cover;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-}
-header{
-    width:100%;
-    height:auto;
-    backdrop-filter: var(--blur);
-    background-color:var(--bg-blur);
-    text-align: center;
-}
-nav{
-    margin: 5px;
+    background-repeat: no-repeat;
     width: 100%;
-    display:flex;
-    justify-content:space-between;
-  }
-  nav .logo img{
-    height:100%;
-  }
-  nav .logo{
-      width: 15%;
-  }
-  nav form{
-      width: 15%;
-  }
-  nav .main_menu{
-    display: flex;
-    align-items: center;
-    width: 70%;
-    justify-content: center;
-  }
-  nav .main_menu a{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-  }
-.search-nav{
-    height:25px !important;
-    background-color:var(--bg-blur) !important;
-    border-radius:var(--radius);
-    border:1px solid var(--lightblue)!important;
-    padding:5px !important;
+    height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
 }
-#Layer_1{
-    width: 75%;
+
+h1,
+h2,
+h3 {
+    font-family: GrandH;
+    text-transform: uppercase;
 }
-footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    width: 75%;
-    height:50px;
+
+h1 {
+    font-size: 2em !important;
+}
+
+h2 {
+    font-size: 1.5em !important;
+}
+
+h3 {
+    font-size: 1em !important;
+}
+
+p {
+    font-size: 0.75em;
+}
+
+p>span {
+    font-size: 1em;
+}
+
+.color-lb {
+    color: var(--lightblue) !important;
+}
+
+/*** ***** HEADER & NAV ***** ***/
+header {
+    width: 100%;
+    height: auto;
+    backdrop-filter: var(--blur);
+    background-color: var(--bg-blur);
+    position: fixed;
+    z-index: 10;
     text-align: center;
-    margin: 0 auto;
-    margin-bottom: 10px;
 }
-footer div{
-    color:var(--lightblue);
-    font-family: GothamB;
-    text-transform:uppercase;
-    letter-spacing: 0.1em;
-    font-size:8px;
-    text-shadow:var(--shadow);
+
+nav>div>a:first-child {
+    width: 10%;
 }
-.flex-container{
+
+nav ul {
+    width: 80%;
     display: flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
 }
-.flex-container-between{
+
+nav ul li a {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+nav form {
+    width: 10%;
+}
+
+.search-nav {
+    height: 25px !important;
+    background-color: var(--bg-blur) !important;
+    border-radius: var(--radius) !important;
+    border: 1px solid var(--lightblue) !important;
+    padding: 5px !important;
+}
+
+.bobaFett {
+    margin-top: 5rem;
+}
+
+.mando {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-between;
 }
-.logo-container{
+
+/*** ***** FOOTER ***** ***/
+footer div {
+    color: var(--lightblue);
+    font-family: GothamB;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 8px;
+    text-shadow: var(--shadow);
+}
+
+footer img {
+    margin: 0.5em;
+}
+
+/*** ***** INDEX ***** ***/
+.logo-container {
     height: 100%;
     width: auto;
-    display: flex;
     top: 0;
-    align-items:flex-start;
-    justify-content: center;
-    padding: 0px 25px 2.5%;
 }
-.logo-container img{
-    width: 35%;
-    height:auto;
+
+.logo-container img {
+    max-width: 35%;
+    height: auto;
 }
-.presentation{
-    margin-top:1.5em;
+
+.presentation {
+    margin-top: 1.5em;
     margin-bottom: 2em;
-    font-size:15px;
-    color:var(--cream);
+    font-size: 15px;
+    color: var(--cream);
     font-family: GothamL;
-    text-shadow:var(--shadow);
-    text-align:center;
+    text-shadow: var(--shadow);
+    text-align: center;
 }
-.presentation span{
-    font-family:GrandH;
-    font-size:22px;
-    color:var(--lightblue);
-    text-transform:uppercase;
+
+.presentation span {
+    font-family: GrandH;
+    font-size: 22px;
+    color: var(--lightblue);
+    text-transform: uppercase;
 }
-.box-connexion{
-    width:450px;
-    height:400px;
+
+.box-connexion {
+    max-width: 450px;
+    width: 100%;
+    max-height: 400px;
+    height: 100%;
+    min-height: 300px;
     backdrop-filter: var(--blur);
-    background-color:var(--cream-o);
+    background-color: var(--cream-o);
     border-radius: var(--radius);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:space-evenly;
 }
-.box-connexion div{
-    font-family:GothamL;
-    font-size:14px;
-    color:var(--darkblue);
-    text-align:center;
+
+.box-connexion div {
+    font-family: GothamL;
+    font-size: 14px;
+    color: var(--darkblue);
+    text-align: center;
 }
-.box-connexion div span{
-    font-family:GothamB;
-    font-size:14px;
+
+.box-connexion div span {
+    font-family: GothamB;
+    font-size: 14px;
 }
-.box-connexion button{
-    border-radius:var(--radius);
-    background-color:var(--darkblue);
-    color:var(--cream);
-    font-family:GrandH;
-    color:var(--lightblue);
+
+.box-connexion button {
+    border-radius: var(--radius);
+    background-color: var(--darkblue);
+    color: var(--cream);
+    font-family: GrandH;
+    color: var(--lightblue);
     padding: 5px 0px;
     border: none;
     width: 165px;
 }
 
-/* SIGN UP et SIGN IN */
-.flex-container-titre-form{
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    margin-bottom: 12px;
-}
-.titre-signup-signin{
-    font-family:GrandH;
-    color:var(--lightblue);
-}
-.flex-container-signup-signin{
-    display: flex;
-    justify-content:center;
-    align-items:center;
-}
-.height-signup{
-    height: 550px;
-}
-.height-signin{
-    height: 350px;
-}
-.box-signup-signin{
+/*** ***** SIGN UP & SIGN IN ***** ***/
+.box-signup-signin {
     width: 27%;
     backdrop-filter: var(--blur);
-    background-color:var(--cream-o);
+    background-color: var(--cream-o);
     border-radius: var(--radius);
-    display:flex;
-    flex-direction:column;
     font-size: 18px;
 }
+
 .box-signup-signin label {
     margin-bottom: 3px;
     margin-left: 55px;
     margin-top: 30px;
-    font-family:GrandH;
+    font-family: GrandH;
     text-align: left;
 }
+
 .box-signup-signin input {
     margin: 0px auto;
     border-radius: var(--radius);
     border: none;
     width: 80%;
     height: 35px;
-    font-family:GrandH;
+    font-family: GrandH;
     font-size: 16px;
     outline: 1px solid var(--darkblue);
+    padding-left: 10px;
 }
+
 .box-signup-signin input:focus {
     outline: 4px solid var(--lightblue);
 }
-.box-signup-signin button{
-    font-family:GrandH;
+
+/*** —— PARTIE SPOT FORM —— ***/
+.box-signup-signin textarea {
+    margin: 0px auto;
+    border-radius: var(--radius);
+    border: none;
+    width: 80%;
+    height: 55px;
+    font-family: GrandH;
+    font-size: 16px;
+    outline: 1px solid var(--darkblue);
+}
+
+.box-signup-signin select {
+    margin: 0px auto;
+    border: none;
+    width: 80%;
+    height: 35px;
+    font-family: GrandH;
+    font-size: 16px;
+    outline: 1px solid var(--darkblue);
+}
+option{
+    font-family: GothamL;
+}
+optgroup{
+    text-transform: uppercase;
+    font-family: GothamB;
+    font-size: 1em;
+    color: var(--darkblue);    
+}
+
+/*** ————— ————— ***/
+.box-signup-signin button {
+    font-family: GrandH;
     margin: 40px auto 30px;
-    border-radius:var(--radius);
-    background-color:var(--darkblue);
-    color:var(--lightblue);
+    border-radius: var(--radius);
+    background-color: var(--darkblue);
+    color: var(--lightblue);
     padding: 7px 0px;
     border: none;
     width: 80%;
 }
-.box-signup-signin p{
+
+.box-signup-signin p {
     text-align: center;
     font-family: GothamL;
     font-size: 16px;
 }
-.box-signup-signin span{
+
+.box-signup-signin span {
     color: dodgerblue;
     font-weight: bold;
 }
-.box-signup-signin span a{
+
+.box-signup-signin span a {
     text-decoration: none;
 }
 
-/* PROFIL */
-.pageProfilInside{
-    width:100%;
-    height:800px;
-}
-.box-connexion-profile-gauche{
-    border-radius: 25px 0px 0px 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-.box-connexion-profile-gauche img{
-    flex-shrink:0;
-    min-width:100%;
-    min-height:100%
-}
-.box-connexion-profile-droite{
-    backdrop-filter: var(--blur);
-    background-color:var(--cream-o);
-    border-radius: 0px 25px 25px 0px;
-    width: 100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:space-evenly;
-}
-.box-connexion-profile-droite h1 {
-    font-family:GrandH;
-    font-size: 2em;
-    text-transform:uppercase;
-    color:var(--darkblue);
-}
-.box-connexion-profile-droite h2 {
-    font-family:GrandH;
-    font-size: 1.5em;
-    text-transform:uppercase;
-    color:var(--gray);
-}
-.box-connexion-profile-droite h3 {
-    font-family:GrandH;
-    font-size: 1em;
-    text-transform:uppercase;
-    color:var(--gray);
-    font-weight: bold;
-}
-.box-connexion-profile-inside-description{
-    border: 1px solid var(--gray);
-    border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 90%;
-    height: auto;
-    padding: 10px;
-    margin: 20px;
-}
-.box-connexion-profile-inside-description span{
-    text-align: center;
-    text-transform:uppercase;
-    font-family: GothamB;
-    font-size: 1em;
-    color:var(--darkblue);
-}
-.box-connexion-profile-inside-description p{
-    text-align: center;
-    font-family: GothamL;
-    font-size: 0.75em;
-    color:var(--darkblue);
-}
-.box-connexion-profile-inside-addon1{
-    border: 1px solid var(--gray);
-    border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 50%;
-    height: auto;
-    padding: 10px;
-    margin: 5px;
-}
-.box-connexion-profile-inside-addon1 span{
-    text-align: center;
-    text-transform:uppercase;
-    font-family: GothamB;
-    font-size: 1em;
-    color:var(--darkblue);
-}
-.box-connexion-profile-inside-addon1 p{
-    text-align: center;
-    font-family: GothamL;
-    font-size: 0.75em;
-    color:var(--darkblue);
-}
-.pageProfilInside img{
-    width: auto;
-    height: 100%;
-    border-radius: 25px 0px 0px 25px;
-    display: flex;
-    align-self: flex-start;
-}
-.icon-profile-section{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 30%;
-    height: auto;
-    border: 1px solid var(--gray);
-    border-radius: var(--radius);
-    padding: 5px;
-}
-.icon-profile-section img{
-    margin: 0px 10px 0px 10px;
-    width: 35%;
-    height: auto;
-}
-.icon-profile-section-social{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 50%;
-    height: auto;
+/*** ***** ALL INPUTS ***** ***/
+input {
+    padding: 1em;
 }
 
+textarea {
+    padding: 1em;
+}
+
+/*** ***** PROFILE ***** ***/
+.container-profile {
+    background-color: var(--cream-o);
+    backdrop-filter: var(--blur);
+    border-radius: var(--radius);
+    overflow: hidden;
+    max-height: 80vh !important;
+    height: 100%;
+}
+
+.container-profile-gauche {
+    height: 100%;
+}
+
+.container-profile-gauche img {
+    width: 100%;
+    max-height: 70vh;
+    min-height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.container-profile-droite {
+    height: 100%;
+}
+
+.container-profile-droite h2 {
+    color: var(--darkblue);
+}
+
+.container-profile-droite h3 {
+    color: var(--gray);
+    font-weight: bold;
+}
+
+.container-profile-description {
+    width: 90%;
+}
+
+.container-profile-description span {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: GothamB;
+    font-size: 1em;
+    color: var(--darkblue);
+}
+
+.container-profile-description p {
+    text-align: center;
+    font-family: GothamL;
+    color: var(--darkblue);
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    height: 15vh;
+    overflow: auto;
+}
+
+.container-profile-contact {
+    width: 90%;
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+}
+
+.container-profile-contact p {
+    text-align: center;
+    font-family: GothamL;
+    color: var(--darkblue);
+}
+
+.container-profile-contact p span {
+    text-transform: uppercase;
+    font-family: GothamB;
+}
+
+.container-profile-contact button {
+    width: 65px;
+    height: 65px;
+    background-color: var(--lightblue);
+    border-color: var(--lightblue);
+}
+
+.container-profile-contact button:hover {
+    background-color: var(--cream-o);
+    border-color: var(--cream);
+}
+
+.container-profile-contact div img {
+    width: 30px;
+}
+
+.container-profile-edition button {
+    width: 65px;
+    height: 65px;
+}
+
+.container-profile-edition button a > i {
+    font-size: 2em;
+}
+
+.container-profile-edition .bi-pencil {
+    color: var(--lightblue);
+}
+
+.container-profile-edition p span {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: GothamB;
+    color: var(--darkblue);
+}
+
+/*** ***** PAGE ERROR ***** ***/
+.box-error {
+    width: 450px;
+    padding: 2%;
+    margin: 5%;
+    backdrop-filter: var(--blur);
+    background-color: var(--cream-o);
+    border-radius: var(--radius);
+    font-size: 1.5em;
+}
+
+/*** ***** PAGE SPOT FEED ***** ***/
+.container-feed {
+    backdrop-filter: var(--blur);
+    background-color: var(--cream-o);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    color: var(--darkblue);
+}
+
+.container-feed img {
+    max-width: 30%;
+    min-width: 15%;
+    width: 100%;
+    height: 250px;
+    border-radius: var(--radius);
+    object-fit: cover;
+}
+
+.container-feed div:last-child button {
+    width: 40px;
+    height: 40px;
+}
+
+.container-feed div span {
+    text-transform: uppercase;
+    font-family: GothamB;
+    font-size: 1em;
+}
+
+.container-feed div p {
+    font-family: GothamL;
+}
+
+/*** ***** PAGE SPOT DETAILS ***** ***/
+.container-spot-valide {
+    text-align: center;
+    font-family: GothamL;
+    color: var(--darkblue);
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+}
+
+.container-spot-valide p span {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: GothamB;
+    color: var(--darkblue);
+}
