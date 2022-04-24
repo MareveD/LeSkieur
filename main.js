@@ -1,31 +1,28 @@
-const express = require('express');
+const express = require("express");
+const dotenv = require('dotenv');
+dotenv.config({path: './config.env'});
+const port = process.env.PORT || 5000;
+const session = require("express-session");
+const router = require('./routes/router');
 const app = express();
-const path = require("path"); 
-const homeController = require("./controllers/homeController");
+const path = require("path");
+const methodOverride = require("method-override");
 
-app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
+app.use(
+    session({
+        secret: "SecretToken",
+    })
+);
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
+app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "public")));
+app.use(router);
 
-app.get('/', homeController.sendIndex);
-app.get("/index", homeController.getRedirect);
-app.get("/signup", homeController.sendSignup);
-app.get("/signin", homeController.sendSignin);
-app.get("/profile", homeController.sendProfile);
+app.set("view engine", "ejs");
 
-app.listen(3000,()=>{
-    console.log("Le serveur est sur le port 3000");
-});
-
-
-
-//testAPI//
-
-//Info retournées via mon compte sur l'API du prof//
-/*{"address":"",
-"phone":"",
-"_id":"622a511e48a79e00040c98af",
-"name":"Marie-Eve Frechette",
-"email":"marevski",
-"password":"$2a$08$2YYZLtxCndq4oRM3A/GZLuqzvSXFtmCi/E2KcdnDJQ6g2pJZDv5wS",
-"__v":0,
-"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI2MjJhNTExZTQ4YTc5ZTAwMDQwYzk4YWYiLCJleHAiOjE2NDcyNzAwNDQ3NTF9.0GYRNrIEJbxdoyYH7HqPoPH6q97k0TA9S9dclXb0ExU"}*/
+app.listen(port, console.log(`Notre serveur tourne sur http://localhost:${port}`)); 
