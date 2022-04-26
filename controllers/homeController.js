@@ -308,3 +308,32 @@ exports.postSignup = ("/signup", (req, rep) => {
         })
         .catch(error => rep.redirect("error"));
 });
+
+//PAGE RECHERCHE D'AMIS//
+exports.getSearchResult = (req, rep) => {
+    const search = req.query.search;
+
+    const data = {
+        search: search,
+    };
+
+    let token = req.session.skiApiToken;
+    const config = {
+        method: "get",
+        url: "http://ski-api.herokuapp.com/users/search/r"+search,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+        },
+        data: data,
+    };
+    axios(config)
+        .then(function (response) {
+            req.session.spotData = response.data.skiSpot;
+            rep.redirect("resultSearch");
+        })
+        .catch(error => {
+            rep.redirect("error");
+        });
+};
