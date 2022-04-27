@@ -27,10 +27,6 @@ exports.searchFriends = (request, response) => {
     response.render("searchFriends");
 };
 
-exports.resultSearch = (request, response) => {
-    response.render("resultSearch");
-};
-
 exports.getProfilSkieur = (request, response) => {
     response.render("profilSkieur");
 };
