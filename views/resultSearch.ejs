@@ -2,9 +2,17 @@ Résultat de la recherche provenant de la page searchFriends.ejs
 
 <h1>Search Results for the keyword <br> <span><%= search %></span></h1>
 
-
 <% resultKeyword.forEach(e => { %>
 
-<%= e.name %>
-<%= e.email %>
+<div class="container-feed row justify-content-between align-items-center m-5" onclick="location.href='/profilSkieur/<%=e.id%>';"
+    style="cursor: pointer;">
+
+    <img src="/img/mountain.jpg" alt="montagne" class="col-lg-4 d-none d-sm-block">
+
+    <div class="col-lg-7 col-sm-9">
+
+        <%= e.name %>
+        <%= e.email %>
+
+    </div>
 <% }) %>

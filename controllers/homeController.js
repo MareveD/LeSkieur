@@ -309,7 +309,10 @@ exports.postSignup = ("/signup", (req, rep) => {
         .catch(error => rep.redirect("error"));
 });
 
+//---------------------------------------------------------------------------------------//
+
 //PAGE RECHERCHE D'AMIS//
+
 exports.sendSearch = (request, response) => {
     const data = request.session.profileData;
     if (data === undefined) {
@@ -326,7 +329,8 @@ exports.getSearchResult = (req, rep) => {
     const name = req.body.name;
     const data = {
         search: search,
-        name: name    };
+        name: name   
+    };
 
     let token = req.session.skiApiToken;
 
@@ -351,3 +355,40 @@ exports.getSearchResult = (req, rep) => {
             rep.redirect("error");
         });
 };
+
+//---------------------------------------------------------------------------------------//
+
+//CLICK A NAME TO GET TO PROFIL//
+
+exports.getUserProfile = (request, response) => {
+    const data = request.session.profileData;
+    if (data === undefined) {
+        response.redirect("/");
+    } else {
+        response.render("profilSkieur", {'data': data});
+    }
+};
+
+exports.getAnID_user = (req, res) => {
+    let token = req.session.skiApiToken;
+    const id = req.params.id;
+    const config = {
+        method: "get",
+        url: "https://ski-api.herokuapp.com/user/" + id,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token
+        }
+    };
+    axios(config)
+        .then(function (resultat) {
+            let showUser = resultat.data.user;
+            res.render("profilSkieur", {showUser});
+        })
+        .catch(error => {
+            res.redirect("error");
+        });
+};
+
+//---------------------------------------------------------------------------------------//

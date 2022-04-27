@@ -26,7 +26,3 @@ exports.sendSpotForm = (request, response) => {
 exports.searchFriends = (request, response) => {
     response.render("searchFriends");
 };
-
-exports.getProfilSkieur = (request, response) => {
-    response.render("profilSkieur");
-};
