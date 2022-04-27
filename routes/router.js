@@ -21,10 +21,16 @@ route.put("/allspot:id", homeController.editSpot);
 route.get('/editSpot:id', homeController.renderEdit);
 route.delete("/allspot:id", homeController.deleteSpot);
 
+//---------------------------------------------------------------------------------------//
+
 //3E FONCTIONNALITE//
 route.get("/searchFriends", api.searchFriends);
-//route.get("/searchFriends", homeController.sendSearch);
-route.get("/profilSkieur", api.getProfilSkieur);
+//route.get("/profilSkieur", api.getProfilSkieur);
 route.get("/resultSearch", homeController.getSearchResult);
+
+route.get("/profilSkieur", homeController.getUserProfile);
+route.get("/profilSkieur/:id", homeController.getAnID_user);
+
+//---------------------------------------------------------------------------------------//
 
 module.exports = route;
