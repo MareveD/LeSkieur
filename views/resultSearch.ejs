@@ -1,0 +1,10 @@
+Résultat de la recherche provenant de la page searchFriends.ejs
+
+<h1>Search Results for the keyword <br> <span><%= search %></span></h1>
+
+
+<% resultKeyword.forEach(e => { %>
+
+<%= e.name %>
+<%= e.email %>
+<% }) %>

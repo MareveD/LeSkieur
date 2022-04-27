@@ -308,3 +308,46 @@ exports.postSignup = ("/signup", (req, rep) => {
         })
         .catch(error => rep.redirect("error"));
 });
+
+//PAGE RECHERCHE D'AMIS//
+exports.sendSearch = (request, response) => {
+    const data = request.session.profileData;
+    if (data === undefined) {
+        response.redirect("/");
+    } else {
+        response.render("resultSearch", {
+            'data': data
+        });
+    }
+};
+
+exports.getSearchResult = (req, rep) => {
+    const search = req.query.search;
+    const name = req.body.name;
+    const data = {
+        search: search,
+        name: name    };
+
+    let token = req.session.skiApiToken;
+
+    const config = {
+        method: "get",
+        url: "http://ski-api.herokuapp.com/users/search/"+search,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+        },
+        data:data,
+    };
+    axios(config)
+        .then(function (resultat) {
+            req.session.profileData = resultat.data;
+            let resultKeyword = resultat.data.users;
+            console.log(resultat.data.users);
+            rep.render("resultSearch", {resultKeyword, data, search});
+        })
+        .catch(error => {
+            rep.redirect("error");
+        });
+};

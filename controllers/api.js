@@ -21,3 +21,12 @@ exports.sendError = (request, response) => {
 exports.sendSpotForm = (request, response) => {
     response.render("spotform");
 };
+
+//3E FONCTIONNALITE//
+exports.searchFriends = (request, response) => {
+    response.render("searchFriends");
+};
+
+exports.getProfilSkieur = (request, response) => {
+    response.render("profilSkieur");
+};
