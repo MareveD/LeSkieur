@@ -4,6 +4,7 @@ const homeController = require("../controllers/homeController");
 const api = require("../controllers/api");
 
 route.get("/", api.sendIndex);
+route.get("/home", api.home);
 route.get("/index", api.getRedirect);
 route.get("/signup", api.sendSignup);
 route.get("/signin", api.sendSignin);
