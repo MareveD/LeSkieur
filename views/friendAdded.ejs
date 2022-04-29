@@ -1,2 +1,15 @@
-Ami ajouté!
-<%= showUser.id >
+<%- include("partials/header") -%>
+
+<main class="mando">
+
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="box-error d-flex justify-content-center align-items-center">
+                    <p>Votre ami skieur <br>
+                        a été ajouté à votre liste ! </p>
+
+                        <a href="/searchFriends">Retour vers la page de recherche</a>
+            </div>
+        </div>
+    </main>
+
+    <%- include("partials/footer") -%>
