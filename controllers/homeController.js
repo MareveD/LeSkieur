@@ -206,6 +206,7 @@ exports.deleteSpot = (req, res) => {
 };
 
 exports.postSignin = ("/signin", (req, rep) => {
+    
     const email = req.body.email;
     const password = req.body.password;
 
@@ -329,7 +330,7 @@ exports.getSearchResult = (req, rep) => {
     const name = req.body.name;
     const data = {
         search: search,
-        name: name   
+        name: name,
     };
 
     let token = req.session.skiApiToken;
@@ -390,5 +391,64 @@ exports.getAnID_user = (req, res) => {
             res.redirect("error");
         });
 };
+
+//---------------------------------------------------------------------------------------//
+
+//ADD SOMEONE AS A FRIEND//
+
+exports.addAFriend = ("/profilSkieur", (req, res) => {
+    let token = req.session.skiApiToken;
+    const id = req.params.id;
+
+    const data = {
+        friendId : id
+    };
+
+    const config = {
+        method: "post",
+        url: "http://ski-api.herokuapp.com/friend",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+        },
+        data: data,
+    };
+    axios(config)
+        .then(function (resultat) {
+            req.session.spotData = resultat.data.user;
+            res.redirect("friendAdded");
+        })
+        .catch(error => {
+            res.redirect("error");
+        });
+});
+
+//---------------------------------------------------------------------------------------//
+
+//SEE SOMEBODY'S FRIENDLIST//
+
+/*exports.seeFriendList_Friend = (req, rep) => {
+    let token = req.session.skiApiToken;
+    const id = req.params.id;
+
+    const config = {
+        method: "get",
+        url: "http://ski-api.herokuapp.com/friend"+id,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+        }    
+    };
+    axios(config)
+        .then(function (resultat) {
+            //let showUser = resultat.data.user;
+            res.redirect("profilSkieur");
+        })
+        .catch(error => {
+            res.redirect("error");
+        });
+};*/
 
 //---------------------------------------------------------------------------------------//

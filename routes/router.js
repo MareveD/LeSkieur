@@ -13,24 +13,23 @@ route.get("/error", api.sendError);
 route.get("/profile", homeController.sendProfile);
 route.post("/signin", homeController.postSignin);
 route.post("/signup", homeController.postSignup);
+
 route.get("/spotAdded", homeController.sendSpot);
 route.post("/spotform", homeController.postSpotForm);
 route.get("/allspot", homeController.getAllSpot);
-route.get("/spotdetail/:id", homeController.getAnID_spot);
 route.put("/allspot:id", homeController.editSpot);
-route.get('/editSpot:id', homeController.renderEdit);
 route.delete("/allspot:id", homeController.deleteSpot);
+route.get("/spotdetail/:id", homeController.getAnID_spot);
+route.get('/editSpot:id', homeController.renderEdit);
 
 //---------------------------------------------------------------------------------------//
-
 //3E FONCTIONNALITE//
 route.get("/searchFriends", api.searchFriends);
-//route.get("/profilSkieur", api.getProfilSkieur);
 route.get("/resultSearch", homeController.getSearchResult);
 
 route.get("/profilSkieur", homeController.getUserProfile);
+route.post("/profilSkieur", homeController.addAFriend);
 route.get("/profilSkieur/:id", homeController.getAnID_user);
-
 //---------------------------------------------------------------------------------------//
 
 module.exports = route;
