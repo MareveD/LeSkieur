@@ -29,5 +29,6 @@
   "bugs": {
     "url": "https://github.com/Ravencypher/projet-prod/issues"
   },
-  "homepage": "https://github.com/Ravencypher/projet-prod#readme"
+  "homepage": "https://github.com/Ravencypher/projet-prod#readme",
+  "devDependencies": {}
 }

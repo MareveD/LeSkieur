@@ -1,17 +1,49 @@
-Résultat de la recherche provenant de la page searchFriends.ejs
+<%- include("partials/header") -%>
 
-<h1>Search Results for the keyword <br> <span><%= search %></span></h1>
+<main class="bobaFett">
 
-<% resultKeyword.forEach(e => { %>
+  <div class="container">
+    <h2 class="color-lb text-center m-5">Résultat de la recherche de <br> <span><%= search %></span></h2>
 
-<div class="container-feed row justify-content-between align-items-center m-5" onclick="location.href='/profilSkieur/<%=e.id%>';"
-    style="cursor: pointer;">
+    <div class=" row justify-content-center align-items-center m-4 p-3">
 
-    <img src="/img/mountain.jpg" alt="montagne" class="col-lg-4 d-none d-sm-block">
+      <% resultKeyword.forEach(e => { %>
 
-    <div class="col-lg-7 col-sm-9">
+      <div class="col-lg-3" onclick="location.href='/profilSkieur/<%=e.id%>';" style="cursor: pointer;">
+        <div class="container-search-friends m-3" style="width: 15rem;">
+          <img src="/img/skieur.jpg" alt="icon profil utilisateur">
+          <div class="container-friends-body p-3 d-flex justify-content-evenly align-items-center flex-column">
+            <h3 class="card-title text-center"><%= e.name %></h3>
+            <div class="d-flex">
+              <form action="" method="get">
+                <button type="submit" class="btn btn-secondary rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
+                    class="bi bi-plus-circle"></i></button>
+              </form>
+              <form action="?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i class="bi bi-x-circle"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <%= e.name %>
-        
+      <% }) %>
+
     </div>
-<% }) %>
+
+
+  </div>
+
+</main>
+
+<%- include("partials/footer") -%>
+
+<!-- <% resultKeyword.forEach(e => { %>
+    <div class="container-feed row justify-content-between align-items-center m-5" onclick="location.href='/profilSkieur/<%=e.id%>';"
+        style="cursor: pointer;">
+        <img src="/img/mountain.jpg" alt="montagne" class="col-lg-4 d-none d-sm-block">
+        <div class="col-lg-7 col-sm-9">
+            <%= e.name %>
+            <%= e.email %>
+        </div>
+    <% }) %> -->
