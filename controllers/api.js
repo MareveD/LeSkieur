@@ -26,3 +26,7 @@ exports.sendSpotForm = (request, response) => {
 exports.searchFriends = (request, response) => {
     response.render("searchFriends");
 };
+
+exports.friendAdded = (request, response) => {
+    response.render("friendAdded");
+};
