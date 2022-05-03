@@ -27,8 +27,10 @@ exports.searchFriends = (request, response) => {
     response.render("searchFriends");
 };
 
+exports.friendAdded = (request, response) => {
+    response.render("friendAdded");
+};
 //PAGE HOME CONNECTÉ //
-
 exports.home = (request, response) => {
     response.render("home");
 }
