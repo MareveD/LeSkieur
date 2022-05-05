@@ -3,6 +3,8 @@ const route = express.Router();
 const homeController = require("../controllers/homeController");
 const api = require("../controllers/api");
 
+//---------------------------------------------------------------------------------------//
+//1.0 PROFILE//
 route.get("/", api.sendIndex);
 route.get("/home", api.home);
 route.get("/index", api.getRedirect);
@@ -10,11 +12,12 @@ route.get("/signup", api.sendSignup);
 route.get("/signin", api.sendSignin);
 route.get("/spotform", api.sendSpotForm);
 route.get("/error", api.sendError);
-
 route.get("/profile", homeController.sendProfile);
 route.post("/signin", homeController.postSignin);
 route.post("/signup", homeController.postSignup);
 
+//---------------------------------------------------------------------------------------//
+//2.0 SPOTS//
 route.get("/spotAdded", homeController.sendSpot);
 route.post("/spotform", homeController.postSpotForm);
 route.get("/allspot", homeController.getAllSpot);
@@ -33,9 +36,9 @@ route.get("/profilSkieur/:id", homeController.getAnID_user);
 //3.1 ADD FRIENDS//
 route.get("/friendAdded", api.pageFriendAdded)
 route.post("/profilSkieur", homeController.addAFriend);
+route.post("/resultSearch", homeController.addAFriend);
 
-
-// route.post("/profilSkieur", homeController.postFriend);
+//3.2 SEE FRIENDS//
 
 //---------------------------------------------------------------------------------------//
 
