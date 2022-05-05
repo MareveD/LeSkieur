@@ -1,5 +1,8 @@
 const axios = require('axios');
 
+//---------------------------------------------------------------------------------------//
+//PROFIL, SIGN IN & SIGN UP//
+
 exports.sendProfile = (request, response) => {
     const data = request.session.profileData;
     if (data === undefined) {
@@ -11,6 +14,114 @@ exports.sendProfile = (request, response) => {
         });
     }
 };
+
+exports.postSignin = ("/signin", (req, rep) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const data = {
+        email: email,
+        password: password,
+    };
+    const config = {
+        method: "post",
+        url: "https://ski-api.herokuapp.com/login",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        data: data,
+    };
+    axios(config)
+        .then(function (response) {
+            let token = response.data.token;
+
+            const data = {
+                token: token,
+            };
+            req.session.skiApiToken = token;
+            const config = {
+                method: "get",
+                url: "https://ski-api.herokuapp.com/tokenInfo",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                    Accept: "application/json",
+                },
+                data: data,
+            };
+            axios(config)
+                .then(function (response) {
+                    req.session.profileData = response.data;
+                    rep.redirect("profile");
+                })
+                .catch(error => rep.redirect("error"));
+        })
+        .catch(error => rep.redirect("error"));
+});
+
+exports.postSignup = ("/signup", (req, rep) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const initialData = {
+        name: name,
+        email: email,
+        password: password,
+    };
+    const config = {
+        method: "post",
+        url: "https://ski-api.herokuapp.com/signup",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        data: initialData,
+    };
+    axios(config)
+        .then(function () {
+            const config = {
+                method: "post",
+                url: "https://ski-api.herokuapp.com/login",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                data: initialData,
+            };
+            axios(config)
+                .then(function (response) {
+                    let token = response.data.token;
+                    const data = {
+                        token: token,
+                    };
+                    req.session.skiApiToken = token;
+                    const config = {
+                        method: "get",
+                        url: "https://ski-api.herokuapp.com/tokenInfo",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: token,
+                            Accept: "application/json",
+                        },
+                        data: data,
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            req.session.profileData = response.data;
+                            rep.redirect("profile");
+                        })
+                        .catch(error => rep.redirect("error"));
+                })
+                .catch(error => rep.redirect("error"));
+        })
+        .catch(error => rep.redirect("error"));
+});
+
+//---------------------------------------------------------------------------------------//
+//SPOTS//
 
 exports.sendSpot = (request, response) => {
     const data = request.session.spotData;
@@ -205,114 +316,8 @@ exports.deleteSpot = (req, res) => {
         });
 };
 
-exports.postSignin = ("/signin", (req, rep) => {
-
-    const email = req.body.email;
-    const password = req.body.password;
-
-    const data = {
-        email: email,
-        password: password,
-    };
-    const config = {
-        method: "post",
-        url: "https://ski-api.herokuapp.com/login",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-        data: data,
-    };
-    axios(config)
-        .then(function (response) {
-            let token = response.data.token;
-
-            const data = {
-                token: token,
-            };
-            req.session.skiApiToken = token;
-            const config = {
-                method: "get",
-                url: "https://ski-api.herokuapp.com/tokenInfo",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: token,
-                    Accept: "application/json",
-                },
-                data: data,
-            };
-            axios(config)
-                .then(function (response) {
-                    req.session.profileData = response.data;
-                    rep.redirect("profile");
-                })
-                .catch(error => rep.redirect("error"));
-        })
-        .catch(error => rep.redirect("error"));
-});
-
-exports.postSignup = ("/signup", (req, rep) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-
-    const initialData = {
-        name: name,
-        email: email,
-        password: password,
-    };
-    const config = {
-        method: "post",
-        url: "https://ski-api.herokuapp.com/signup",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-        data: initialData,
-    };
-    axios(config)
-        .then(function () {
-            const config = {
-                method: "post",
-                url: "https://ski-api.herokuapp.com/login",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                data: initialData,
-            };
-            axios(config)
-                .then(function (response) {
-                    let token = response.data.token;
-                    const data = {
-                        token: token,
-                    };
-                    req.session.skiApiToken = token;
-                    const config = {
-                        method: "get",
-                        url: "https://ski-api.herokuapp.com/tokenInfo",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: token,
-                            Accept: "application/json",
-                        },
-                        data: data,
-                    };
-                    axios(config)
-                        .then(function (response) {
-                            req.session.profileData = response.data;
-                            rep.redirect("profile");
-                        })
-                        .catch(error => rep.redirect("error"));
-                })
-                .catch(error => rep.redirect("error"));
-        })
-        .catch(error => rep.redirect("error"));
-});
-
 //---------------------------------------------------------------------------------------//
-
-//PAGE RECHERCHE D'AMIS//
+//SEARCH//
 
 exports.sendSearch = (request, response) => {
     const data = request.session.profileData;
@@ -332,9 +337,7 @@ exports.getSearchResult = (req, rep) => {
         search: search,
         name: name,
     };
-
     let token = req.session.skiApiToken;
-
     const config = {
         method: "get",
         url: "http://ski-api.herokuapp.com/users/search/" + search,
@@ -343,7 +346,6 @@ exports.getSearchResult = (req, rep) => {
             Accept: "application/json",
             Authorization: token,
         },
-      //  data: data,
     };
     axios(config)
         .then(function (resultat) {
@@ -356,14 +358,12 @@ exports.getSearchResult = (req, rep) => {
             });
         })
         .catch(error => {
-            // console.log("getSearchResult "+ error.message);
             rep.redirect("error");
         });
 };
 
 //---------------------------------------------------------------------------------------//
-
-//CLICK A NAME TO GET TO PROFIL//
+//GET TO USER PROFILE//
 
 exports.getUserProfile = (request, response) => {
     const data = request.session.profileData;
@@ -379,7 +379,6 @@ exports.getUserProfile = (request, response) => {
 exports.getAnID_user = (req, res) => {
     let token = req.session.skiApiToken;
     const id = req.params.id;
-    // console.log('getAnID_user = ' + req.params.id)
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/user/" + id,
@@ -389,7 +388,6 @@ exports.getAnID_user = (req, res) => {
             Authorization: token
         }
     };
-
     axios(config)
         .then(function (resultat) {
             let showUser = resultat.data.user;
@@ -403,8 +401,8 @@ exports.getAnID_user = (req, res) => {
 };
 
 //---------------------------------------------------------------------------------------//
-
 //ADD SOMEONE AS A FRIEND//
+
 exports.sendUserToFriendList = (request, response) => {
     const data = request.session.profileData;
     if (data === undefined) {
@@ -417,24 +415,10 @@ exports.sendUserToFriendList = (request, response) => {
 };
 
 exports.addAFriend = (req, res) => {
-
     let token = req.session.skiApiToken;
-
     const id = req.body.friendId;
     console.log('the ID is = ' + id);
-
     let friendId = id;
-
-    /*const config = {
-        method: "get",
-        url: "https://ski-api.herokuapp.com/user/"+id,
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: token
-        }
-    };*/
-
     const config = {
         method: "post",
         url: "https://ski-api.herokuapp.com/friend/",
@@ -443,101 +427,18 @@ exports.addAFriend = (req, res) => {
             Accept: "application/json",
             Authorization: token
         },
-        data: {friendId},
+        data: {
+            friendId
+        },
     };
-
-    /*axios(config)
-        .then(function () {*/
-
-            /*const id = req.body.friendId;
-            console.log('the ID is = ' + id);
-
-            let friendId = id;*/
-
-                /*const config = {
-                    method: "post",
-                    url: "https://ski-api.herokuapp.com/friend",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        Authorization: token
-                    },
-                    data: friendId,
-                };*/
-
-            axios(config)
-            .then(function (resultat) {
-                console.log(resultat);
-                console.log(config);
-                // let showUser = resultat.data.user;
-                // console.log(showUser);
-                res.render("friendAdded");
-            })
-
-            .catch(error => {
-                console.log(config);
-                console.log('error is' + error.message);
-                res.redirect("error");
-            });
-    // });
+    axios(config)
+        .then(function (resultat) {
+            console.log(resultat);
+            res.render("friendAdded");
+        })
+        .catch(error => {
+            console.log(config);
+            console.log('error is' + error.message);
+            res.redirect("error");
+        });
 }
-
-/*exports.postFriend = (req, rep) => {
-    const friendId = req.body.friendId;
-    const data = {
-        friendId : friendId
-    };
-    let token = req.session.skiApiToken;
-
-    const config = {
-        method: "post",
-        url: "https://ski-api.herokuapp.com/friend",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: token,
-        },
-        data: data,
-    };
-    axios(config)
-        .then(function (response) {
-            req.session.profileData = response.data.friendId;
-            let showUser = resultat.data.user;
-            rep.redirect("profilSkieur", {showUser});
-        })
-        .catch(error => {
-            console.log('error is' + error.response.data);
-            rep.redirect("error");
-        });
-};*/
-
-/*exports.postFriend = (req, rep) => {
-    const friendId = req.body.friendid;
-    console.log("postFriend :"+ req.body.friendid)
-
-    const data = {
-        id: friendId
-    };
-
-    let token = req.session.skiApiToken;
-    const config = {
-        method: "post",
-        url: "https://ski-api.herokuapp.com/friend/"+friendId,
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: token,
-        },
-        data: data,
-    };
-    axios(config)
-        .then(function (response) {
-            req.session.profileData = response.data.friendId;
-            console.log(response.data.friendId);
-            rep.redirect("friendAdded");
-        })
-        .catch(error => {
-            console.log('error is' + error.response.data.friendId);
-            rep.redirect("error");
-        });
- };*/
