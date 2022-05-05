@@ -26,8 +26,7 @@ exports.sendSpotForm = (request, response) => {
 exports.searchFriends = (request, response) => {
     response.render("searchFriends");
 };
-
-exports.friendAdded = (request, response) => {
+exports.pageFriendAdded = (request, response) => {
     response.render("friendAdded");
 };
 //PAGE HOME CONNECTÉ //

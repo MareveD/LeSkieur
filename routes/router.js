@@ -24,14 +24,19 @@ route.get("/spotdetail/:id", homeController.getAnID_spot);
 route.get('/editSpot:id', homeController.renderEdit);
 
 //---------------------------------------------------------------------------------------//
-//3E FONCTIONNALITE//
+//3.0 SEARCH//
 route.get("/resultSearch", homeController.getSearchResult);
 route.get("/searchFriends", api.searchFriends);
-route.get("/friendAdded", api.friendAdded);
 route.get("/profilSkieur", homeController.getUserProfile);
-
-route.post("/profilSkieur", homeController.addAFriend);
 route.get("/profilSkieur/:id", homeController.getAnID_user);
+
+//3.1 ADD FRIENDS//
+route.get("/friendAdded", api.pageFriendAdded)
+route.post("/profilSkieur", homeController.addAFriend);
+
+
+// route.post("/profilSkieur", homeController.postFriend);
+
 //---------------------------------------------------------------------------------------//
 
 module.exports = route;
