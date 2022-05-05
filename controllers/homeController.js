@@ -442,3 +442,33 @@ exports.addAFriend = (req, res) => {
             res.redirect("error");
         });
 }
+
+//---------------------------------------------------------------------------------------//
+//DELETE SOMEONE AS A FRIEND//
+
+exports.deleteFriend = (req, res) => {
+    const token = req.session.skiApiToken;
+    const id = req.body.friendId;
+    let friendId = id;
+    const config = {
+        method: "delete",
+        url: "https://ski-api.herokuapp.com/friend/"+friendId,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token
+        },
+        data: {
+            friendId
+        },
+    };
+    axios(config)
+        .then(() => {            
+            console.log(config);
+            res.redirect('searchFriends');
+        })
+        .catch(error => {
+            console.log(config);
+            res.redirect("error");
+        });
+};
