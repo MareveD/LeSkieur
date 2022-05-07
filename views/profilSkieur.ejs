@@ -14,15 +14,34 @@
                 <div class="container-profile-contact m-3 d-flex flex-column justify-content-center align-items-center">
                     <p class="m-3"><span>Courriel</span> : <br> <%= showUser.email %></p>
 
+
+                    <% let friendFound = false; %>
+                    <% friends.forEach(verify => { %>
+                    <% if (verify.id == showUser.id) { %>
+                    <% friendFound = true; %>
+                    <% } %>
+                    <% }) %>
+
+                    <% if(showUser.id === myID) { %>
+
+                        <p>that's me yo</p>
+        
+                      <% } else if (!friendFound) { %>
+      
                     <div>
                         <form action="/profilSkieur" method="post">
 
                             <button type="submit" class="btn btn-secondary rounded-circle m-3"
-                                title="Ajoute comme ami"><img src="/img/add.png" alt="Ajoute comme ami"></button>
-                                
+                                title="Ajoute comme ami"><img src="/img/add.png" alt="Ajoute comme ami"></button>    
                                 <input type="hidden" id="friendId" name="friendId" value="<%= showUser.id %>">
                         </form>
                     </div>
+
+                    <% } else { %>
+
+                        <p>Deja La!</p>
+
+                        <% } %>
                 </div>
             </div>
         </div>

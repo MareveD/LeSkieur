@@ -367,6 +367,9 @@ exports.sendSearch = (request, response) => {
 
 exports.getSearchResult = (req, rep) => {
     const search = req.query.search;
+    let myID = req.session.profileData._id;
+    console.log("my profile data is " + req.session.profileData._id);
+    console.log("myID is " + myID);
     const name = req.body.name;
     const data = {
         search: search,
@@ -387,6 +390,7 @@ exports.getSearchResult = (req, rep) => {
     };
     axios(config)
         .then(function (resultat) {
+            let token = req.session.skiApiToken;
             friends = resultat.data.friends;
             console.log(friends);
 
@@ -401,12 +405,12 @@ exports.getSearchResult = (req, rep) => {
             };
             axios(config)
                 .then(function (resultat) {
-                    req.session.profileData = resultat.data;
                     let resultKeyword = resultat.data.users;
                     rep.render("resultSearch", {
                         resultKeyword,
                         data,
                         search,
+                        myID,
                         friends
                     });
                 })
@@ -437,11 +441,14 @@ exports.getUserProfile = (request, response) => {
 
 exports.getAnID_user = (req, res) => {
     let token = req.session.skiApiToken;
+    let myID = req.session.profileData._id;
     const id = req.params.id;
+
+    let friends = [];
 
     const config = {
         method: "get",
-        url: "https://ski-api.herokuapp.com/user/" + id,
+        url: "https://ski-api.herokuapp.com/friend",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -450,13 +457,35 @@ exports.getAnID_user = (req, res) => {
     };
     axios(config)
         .then(function (resultat) {
-            let showUser = resultat.data.user;
-            res.render("profilSkieur", {
-                showUser
-            });
+            friends = resultat.data.friends;
+            console.log(friends);
+
+            const config = {
+                method: "get",
+                url: "https://ski-api.herokuapp.com/user/" + id,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: token
+                }
+            };
+            axios(config)
+                .then(function (resultat) {
+                    let showUser = resultat.data.user;
+                    res.render("profilSkieur", {
+                        showUser,
+                        friends,
+                        myID
+                    });
+                })
+                .catch(error => {
+                    res.redirect("error");
+                });
         })
         .catch(error => {
-            res.redirect("error");
+            console.log(config);
+            console.log("error is = " + error);
+            rep.redirect("error");
         });
 };
 
