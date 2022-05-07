@@ -5,15 +5,20 @@ const axios = require('axios');
 
 exports.sendProfile = (request, response) => {
     const data = request.session.profileData;
+    const friends = request.session.friends;
     if (data === undefined) {
         response.redirect("signin");
     } else {
         console.log("Rendering profile with token: " + data.token);
+        console.log("Amis!!!");
+        console.log(friends);
         response.render("profile", {
-            'data': data
+            'data': data,
+            friends
         });
     }
 };
+
 
 exports.postSignin = ("/signin", (req, rep) => {
 
@@ -53,8 +58,44 @@ exports.postSignin = ("/signin", (req, rep) => {
             };
             axios(config)
                 .then(function (response) {
+
                     req.session.profileData = response.data;
-                    rep.redirect("profile");
+                    
+                    const config = {
+                        method: "get",
+                        url: "http://ski-api.herokuapp.com/friend/",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            Authorization: token
+                        }
+                    };
+                    axios(config)
+                        .then((response) => { 
+                            console.log("Succes");   
+                            // console.log(JSON.stringify(response.data));
+                            //req.session.spotData = resultat.data.skiSpots;
+                            console.log(JSON.stringify(response.data));
+                            console.log(JSON.stringify(response.data.friends));
+
+
+                            /* let showFriends = response.data.friends; */
+                            // console.log(showFriends); 
+                            req.session.friends = response.data.friends;
+                            req.session.profileData = response.data;
+                            rep.redirect("profile"/* , {
+                                showFriends
+                            } */);
+                            /* rep.render("showFriend", {
+                                showFriends
+                            }); */
+                        })
+                        .catch(error => {
+                            console.log("Erreur");
+                            console.log(config);
+                            console.log('error is' + error.message);
+                            rep.redirect("error");
+                        });
                 })
                 .catch(error => rep.redirect("error"));
         })
@@ -377,7 +418,7 @@ exports.getUserProfile = (request, response) => {
 };
 
 exports.getAnID_user = (req, res) => {
-    let token = req.session.skiApiToken;
+    const token = req.session.skiApiToken;
     const id = req.params.id;
     const config = {
         method: "get",
@@ -398,7 +439,39 @@ exports.getAnID_user = (req, res) => {
         .catch(error => {
             res.redirect("error");
         });
+
 };
+
+/* exports.showFriendPage = (req, res) => {
+    const token = req.session.skiApiToken;
+    
+    const config = {
+        method: "get",
+        url: "http://ski-api.herokuapp.com/friend/",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token
+        }
+    };
+    axios(config)
+        .then((response) => { 
+            // console.log("Succes");   
+            // console.log(JSON.stringify(response.data));
+            //req.session.spotData = resultat.data.skiSpots;
+            let showFriends = response.data.friends; 
+            // console.log(showFriends); 
+            res.render("showFriend", {
+                showFriends
+            });
+        })
+        .catch(error => {
+            console.log("Erreur");
+            console.log(config);
+            console.log('error is' + error.message);
+            res.redirect("error");
+        });
+}; */
 
 //---------------------------------------------------------------------------------------//
 //ADD SOMEONE AS A FRIEND//
@@ -448,27 +521,102 @@ exports.addAFriend = (req, res) => {
 
 exports.deleteFriend = (req, res) => {
     const token = req.session.skiApiToken;
-    const id = req.body.friendId;
-    let friendId = id;
+    /* const id = req.body.friendId; */
+    const id = req.params.id;
+    /* let friendId = id; */
     const config = {
         method: "delete",
-        url: "https://ski-api.herokuapp.com/friend/"+friendId,
+        url: "http://ski-api.herokuapp.com/friend/"+ id,
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: token
-        },
-        data: {
-            friendId
-        },
+        }
     };
     axios(config)
         .then(() => {            
             console.log(config);
-            res.redirect('searchFriends');
+            res.redirect('profile');
+            /* res.render('profile'); */
+            /* res.redirect('signin'); */
         })
         .catch(error => {
             console.log(config);
             res.redirect("error");
         });
 };
+
+//---------------------------------------------------------------------------------------//
+//AFFICHER MES AMIS//
+
+
+exports.showFriend = (request, response) => {
+    response.render("showFriend");
+};
+
+exports.showFriendPage = (req, res) => {
+    const token = req.session.skiApiToken;
+
+    const config = {
+        method: "get",
+        url: "http://ski-api.herokuapp.com/friend/",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token
+        }
+    };
+    axios(config)
+        .then((response) => { 
+            // console.log("Succes");   
+            // console.log(JSON.stringify(response.data));
+            //req.session.spotData = resultat.data.skiSpots;
+            console.log(JSON.stringify(response.data));
+            let showFriends = response.data.friends;
+            // console.log(showFriends); 
+            res.render("showFriend", {
+                showFriends
+            });
+        })
+        .catch(error => {
+            console.log("Erreur");
+            console.log(config);
+            console.log('error is' + error.message);
+            res.redirect("error");
+        });
+};
+
+
+/*
+exports.sendProfile = (request, response) => {
+    const data = request.session.profileData;
+    if (data === undefined) {
+        response.redirect("signin");
+    } else {
+        console.log("Rendering profile with token: " + data.token);
+        const token = data.token;
+        const config = {
+            method: "get",
+            url: "http://ski-api.herokuapp.com/friend/",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: token
+            }
+        };
+        axios(config)
+            .then((response) => { 
+                console.log("Succes");   
+                console.log(JSON.stringify(response.data));
+                // req.session.spotData = resultat.data.skiSpots;
+                // let showFriends = response.data.friends;
+                response.render("profile", {
+                    'data': data
+                });
+            })
+            .catch(error => {
+                console.log("Erreur");
+                console.log(config);
+            });
+    }
+}; */

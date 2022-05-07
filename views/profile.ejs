@@ -33,8 +33,8 @@
                     <p class="m-3"><span>Courriel</span> : <br> <%= data.email %></p>
                     <div>
 
-                        <button type="button" class="btn btn-secondary rounded-circle m-3"><img src="/img/add.png"
-                                alt="Ajoute comme ami"></button>
+                        <a href="/showFriendPage"><button type="button" class="btn btn-secondary rounded-circle m-3"><img src="/img/add.png"
+                                alt="Ajoute comme ami"></button></a>
                         <button type="button" class="btn btn-secondary rounded-circle m-3"><img src="/img/message.png"
                                 alt="Envoi un message priv/"></button>
                         <button type="button" class="btn btn-secondary rounded-circle m-3"><img src="/img/follow.png"
@@ -54,38 +54,16 @@
         <div class="row d-flex justify-content-center align-items-center container-friends m-3 p-4">
             <h2 class="text-center">Liste d'ami·es</h2>
             <div class="col-lg-12 d-flex justify-content-between align-items-center">
-                <div class="friends d-flex justify-content-around align-items-center m-1">
-                    <img src="/img/icon.jpg" alt="icon utilisateur">
-                    <span>Firstname lastname</span>
-                    <form action="" method="POST">
-                        <button type="submit" class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
-                                class="bi bi-x-circle"></i></button>
-                    </form>
-                </div>
-                <div class="friends d-flex justify-content-around align-items-center m-1">
-                    <img src="/img/icon.jpg" alt="icon utilisateur">
-                    <span>Firstname lastname</span>
-                    <form action="" method="POST">
-                        <button type="submit" class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
-                                class="bi bi-x-circle"></i></button>
-                    </form>
-                </div>
-                <div class="friends d-flex justify-content-around align-items-center m-1">
-                    <img src="/img/icon.jpg" alt="icon utilisateur">
-                    <span>Firstname lastname</span>
-                    <form action="" method="POST">
-                        <button type="submit" class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
-                                class="bi bi-x-circle"></i></button>
-                    </form>
-                </div>
-                <div class="friends d-flex justify-content-around align-items-center m-1">
-                    <img src="/img/icon.jpg" alt="icon utilisateur">
-                    <span>Firstname lastname</span>
-                    <form action="" method="POST">
-                        <button type="submit" class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
-                                class="bi bi-x-circle"></i></button>
-                    </form>
-                </div>
+                <% friends.forEach(e => { %>
+                    <div class="friends d-flex justify-content-around align-items-center m-1">
+                        <img src="/img/icon.jpg" alt="icon utilisateur">
+                        <span><%= e.name %></span>
+                        <form action="/resultSearch<%= e.id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
+                                    class="bi bi-x-circle"></i></button>
+                        </form>
+                    </div>
+                <% }) %>
             </div>
         </div>
     </div>

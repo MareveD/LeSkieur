@@ -34,13 +34,14 @@ route.get("/profilSkieur", homeController.getUserProfile);
 route.get("/profilSkieur/:id", homeController.getAnID_user);
 
 //3.1 ADD & DELETE FRIENDS//
-route.get("/friendAdded", api.pageFriendAdded)
+route.get("/friendAdded", api.pageFriendAdded);
 route.post("/profilSkieur", homeController.addAFriend);
 route.post("/resultSearch", homeController.addAFriend);
 route.delete("/resultSearch:id", homeController.deleteFriend);
 
 //3.2 SEE FRIENDS//
-
+route.get("/showFriend", homeController.showFriend);
+route.get("/showFriendPage", homeController.showFriendPage);
 //---------------------------------------------------------------------------------------//
 
 module.exports = route;
