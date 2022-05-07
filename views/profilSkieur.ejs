@@ -10,12 +10,11 @@
                 class="col-lg-6 col-md-6 col-sm-12 p-0 container-profile-droite d-flex flex-column justify-content-between align-items-center">
                 <h1>
                     <%= showUser.name %>
-                    <%= showUser.id %>
                 </h1>
                 <div class="container-profile-contact m-3 d-flex flex-column justify-content-center align-items-center">
                     <p class="m-3"><span>Courriel</span> : <br> <%= showUser.email %></p>
-                    <div>
 
+                    <div>
                         <form action="/profilSkieur" method="post">
 
                             <button type="submit" class="btn btn-secondary rounded-circle m-3"
@@ -23,7 +22,6 @@
                                 
                                 <input type="hidden" id="friendId" name="friendId" value="<%= showUser.id %>">
                         </form>
-
                     </div>
                 </div>
             </div>

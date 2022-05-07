@@ -16,6 +16,15 @@
             <h3 class="card-title text-center"><%= e.name %></h3>
             <div class="d-flex">
 
+              <% let friendFound = false; %>
+              <% friends.forEach(verify => { %>
+              <% if (verify.id == e.id) { %>
+              <% friendFound = true; %>
+              <% } %>
+              <% }) %>
+
+              <% if (!friendFound) { %>
+
               <form action="/resultSearch" method="POST">
                 <button type="submit"
                   class="btn btn-secondary rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
@@ -23,12 +32,16 @@
                 <input type="hidden" id="friendId" name="friendId" value="<%= e.id %>">
               </form>
 
+              <% } else { %>
+
               <form action="/resultSearch<%= e.id %>?_method=DELETE" method="POST">
                 <button type="submit"
                   class="btn btn-danger rounded-circle m-1 icons-ED d-flex justify-content-center align-items-center"><i
                     class="bi bi-x-circle"></i></button>
                 <input type="hidden" id="friendId" name="friendId" value="<%= e.id %>">
               </form>
+
+              <% } %>
 
             </div>
           </div>

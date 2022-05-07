@@ -61,6 +61,7 @@ exports.postSignin = ("/signin", (req, rep) => {
         .catch(error => rep.redirect("error"));
 });
 
+
 exports.postSignup = ("/signup", (req, rep) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -317,7 +318,7 @@ exports.deleteSpot = (req, res) => {
 };
 
 //---------------------------------------------------------------------------------------//
-//SEARCH//
+//SEARCH + VERIFY FRIEND//
 
 exports.sendSearch = (request, response) => {
     const data = request.session.profileData;
@@ -330,7 +331,7 @@ exports.sendSearch = (request, response) => {
     }
 };
 
-exports.getSearchResult = (req, rep) => {
+/*exports.getSearchResult = (req, rep) => {
     const search = req.query.search;
     const name = req.body.name;
     const data = {
@@ -338,6 +339,7 @@ exports.getSearchResult = (req, rep) => {
         name: name,
     };
     let token = req.session.skiApiToken;
+
     const config = {
         method: "get",
         url: "http://ski-api.herokuapp.com/users/search/" + search,
@@ -354,10 +356,67 @@ exports.getSearchResult = (req, rep) => {
             rep.render("resultSearch", {
                 resultKeyword,
                 data,
-                search
+                search,
+                friends
             });
         })
         .catch(error => {
+            rep.redirect("error");
+        });
+};*/
+
+exports.getSearchResult = (req, rep) => {
+    const search = req.query.search;
+    const name = req.body.name;
+    const data = {
+        search: search,
+        name: name,
+    };
+    let token = req.session.skiApiToken;
+
+    let friends = [];
+
+    const config = {
+        method: "get",
+        url: "https://ski-api.herokuapp.com/friend",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token
+        }
+    };
+    axios(config)
+        .then(function (resultat) {
+            friends = resultat.data.friends;
+            console.log(friends);
+
+            const config = {
+                method: "get",
+                url: "http://ski-api.herokuapp.com/users/search/" + search,
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: token,
+                },
+            };
+            axios(config)
+                .then(function (resultat) {
+                    req.session.profileData = resultat.data;
+                    let resultKeyword = resultat.data.users;
+                    rep.render("resultSearch", {
+                        resultKeyword,
+                        data,
+                        search,
+                        friends
+                    });
+                })
+                .catch(error => {
+                    rep.redirect("error");
+                });
+        })
+        .catch(error => {
+            console.log(config);
+            console.log("error is = " + error);
             rep.redirect("error");
         });
 };
@@ -379,6 +438,7 @@ exports.getUserProfile = (request, response) => {
 exports.getAnID_user = (req, res) => {
     let token = req.session.skiApiToken;
     const id = req.params.id;
+
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/user/" + id,
@@ -399,6 +459,7 @@ exports.getAnID_user = (req, res) => {
             res.redirect("error");
         });
 };
+
 
 //---------------------------------------------------------------------------------------//
 //ADD SOMEONE AS A FRIEND//
@@ -434,7 +495,7 @@ exports.addAFriend = (req, res) => {
     axios(config)
         .then(function (resultat) {
             console.log(resultat);
-            res.render("friendAdded");
+            res.redirect("friendAdded");
         })
         .catch(error => {
             console.log(config);
@@ -444,7 +505,7 @@ exports.addAFriend = (req, res) => {
 }
 
 //---------------------------------------------------------------------------------------//
-//DELETE SOMEONE AS A FRIEND//
+//DELETE SOMEONE AS A FRIEND, via SEARCH PAGE//
 
 exports.deleteFriend = (req, res) => {
     const token = req.session.skiApiToken;
@@ -452,7 +513,7 @@ exports.deleteFriend = (req, res) => {
     let friendId = id;
     const config = {
         method: "delete",
-        url: "https://ski-api.herokuapp.com/friend/"+friendId,
+        url: "https://ski-api.herokuapp.com/friend/" + friendId,
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -463,7 +524,7 @@ exports.deleteFriend = (req, res) => {
         },
     };
     axios(config)
-        .then(() => {            
+        .then(() => {
             console.log(config);
             res.redirect('searchFriends');
         })
@@ -472,3 +533,4 @@ exports.deleteFriend = (req, res) => {
             res.redirect("error");
         });
 };
+//---------------------------------------------------------------------------------------//
