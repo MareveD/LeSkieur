@@ -43,6 +43,7 @@ route.delete("/resultSearch:id", homeController.deleteFriend);
 route.delete("/delete:id", homeController.deleteFriendProfile);
 
 //3.2 EST DANS sendProfile ET profilSkieur.ejs (AUCUNE ROUTE NÉCESSAIRE)
+
 //---------------------------------------------------------------------------------------//
 
 module.exports = route;

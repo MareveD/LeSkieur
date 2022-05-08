@@ -6,7 +6,7 @@ exports.sendIndex = (request, response) => {
 };
 exports.home = (request, response) => {
     response.render("home");
-}
+};
 exports.sendSignup = (request, response) => {
     response.render("signup");
 };
