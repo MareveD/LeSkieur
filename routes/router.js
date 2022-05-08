@@ -39,7 +39,10 @@ route.post("/profilSkieur", homeController.addAFriend);
 route.post("/resultSearch", homeController.addAFriend);
 route.delete("/resultSearch:id", homeController.deleteFriend);
 
-//3.2 SEE FRIENDS//
+//DELETE SOMEONE AS A FRIEND, via PROFILE//
+route.delete("/delete:id", homeController.deleteFriendProfile);
+
+//3.2 EST DANS sendProfile ET profilSkieur.ejs (AUCUNE ROUTE NÉCESSAIRE)
 
 //---------------------------------------------------------------------------------------//
 
