@@ -11,7 +11,6 @@ route.get("/index", api.getRedirect);
 route.get("/signup", api.sendSignup);
 route.get("/signin", api.sendSignin);
 route.get("/spotform", api.sendSpotForm);
-route.get("/error", api.sendError);
 route.get("/profile", homeController.sendProfile);
 route.post("/signin", homeController.postSignin);
 route.post("/signup", homeController.postSignup);
@@ -40,6 +39,11 @@ route.post("/resultSearch", homeController.addAFriend);
 route.delete("/resultSearch:id", homeController.deleteFriend);
 
 //3.2 SEE FRIENDS//
+
+//---------------------------------------------------------------------------------------//
+
+//ERREUR//
+route.get("/error", api.sendError);
 
 //---------------------------------------------------------------------------------------//
 

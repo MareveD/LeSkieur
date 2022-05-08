@@ -16,10 +16,8 @@ exports.sendProfile = (request, response) => {
 };
 
 exports.postSignin = ("/signin", (req, rep) => {
-
     const email = req.body.email;
     const password = req.body.password;
-
     const data = {
         email: email,
         password: password,
@@ -54,7 +52,7 @@ exports.postSignin = ("/signin", (req, rep) => {
             axios(config)
                 .then(function (response) {
                     req.session.profileData = response.data;
-                    rep.redirect("profile");
+                    rep.redirect("home");
                 })
                 .catch(error => rep.redirect("error"));
         })
@@ -66,7 +64,6 @@ exports.postSignup = ("/signup", (req, rep) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-
     const initialData = {
         name: name,
         email: email,
@@ -112,7 +109,7 @@ exports.postSignup = ("/signup", (req, rep) => {
                     axios(config)
                         .then(function (response) {
                             req.session.profileData = response.data;
-                            rep.redirect("profile");
+                            rep.redirect("home");
                         })
                         .catch(error => rep.redirect("error"));
                 })
@@ -142,7 +139,6 @@ exports.postSpotForm = (req, rep) => {
     const difficulty = req.body.difficulty;
     const longitude = Number(req.body.longitude);
     const latitude = Number(req.body.latitude);
-
     const data = {
         name: name,
         description: description,
@@ -174,7 +170,6 @@ exports.postSpotForm = (req, rep) => {
 exports.getAllSpot = (req, rep) => {
     let token = req.session.skiApiToken;
     let pageNB = Number(req.query.page || 1);
-
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/ski-spot?limit=10&page=" + pageNB,
@@ -187,13 +182,10 @@ exports.getAllSpot = (req, rep) => {
     axios(config)
         .then(function (resultat) {
             req.session.spotData = resultat.data.skiSpots;
-
             let showSpots = resultat.data.skiSpots;
             let paginationSpot = resultat.data.totalPages;
-
             let pagePrevious = pageNB - 1;
             let pageNext = pageNB + 1;
-
             rep.render("allspot", {
                 showSpots,
                 paginationSpot,
@@ -210,7 +202,6 @@ exports.getAllSpot = (req, rep) => {
 exports.getAnID_spot = (req, rep) => {
     let token = req.session.skiApiToken;
     const id = req.params.id;
-
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/ski-spot/" + id,
@@ -235,7 +226,6 @@ exports.getAnID_spot = (req, rep) => {
 exports.renderEdit = (req, res) => {
     let token = req.session.skiApiToken;
     const id = req.params.id;
-
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/ski-spot/" + id,
@@ -259,7 +249,6 @@ exports.renderEdit = (req, res) => {
 
 exports.editSpot = (req, res) => {
     let token = req.session.skiApiToken;
-
     const id = req.params.id;
     const name = req.body.name;
     const description = req.body.description;
@@ -267,14 +256,12 @@ exports.editSpot = (req, res) => {
     const difficulty = req.body.difficulty;
     const longitude = Number(req.body.longitude);
     const latitude = Number(req.body.latitude);
-
     const data = {
         name: name,
         description: description,
         address: address,
         difficulty: difficulty,
         coordinates: [longitude, latitude],
-
     };
     const config = {
         method: "put",
@@ -298,7 +285,6 @@ exports.editSpot = (req, res) => {
 exports.deleteSpot = (req, res) => {
     const token = req.session.skiApiToken;
     const id = req.params.id;
-
     const config = {
         method: "delete",
         url: "http://ski-api.herokuapp.com/ski-spot/" + id,
@@ -331,40 +317,6 @@ exports.sendSearch = (request, response) => {
     }
 };
 
-/*exports.getSearchResult = (req, rep) => {
-    const search = req.query.search;
-    const name = req.body.name;
-    const data = {
-        search: search,
-        name: name,
-    };
-    let token = req.session.skiApiToken;
-
-    const config = {
-        method: "get",
-        url: "http://ski-api.herokuapp.com/users/search/" + search,
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: token,
-        },
-    };
-    axios(config)
-        .then(function (resultat) {
-            req.session.profileData = resultat.data;
-            let resultKeyword = resultat.data.users;
-            rep.render("resultSearch", {
-                resultKeyword,
-                data,
-                search,
-                friends
-            });
-        })
-        .catch(error => {
-            rep.redirect("error");
-        });
-};*/
-
 exports.getSearchResult = (req, rep) => {
     const search = req.query.search;
     let myID = req.session.profileData._id;
@@ -376,9 +328,7 @@ exports.getSearchResult = (req, rep) => {
         name: name,
     };
     let token = req.session.skiApiToken;
-
     let friends = [];
-
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/friend",
@@ -393,7 +343,6 @@ exports.getSearchResult = (req, rep) => {
             let token = req.session.skiApiToken;
             friends = resultat.data.friends;
             console.log(friends);
-
             const config = {
                 method: "get",
                 url: "http://ski-api.herokuapp.com/users/search/" + search,
@@ -424,9 +373,8 @@ exports.getSearchResult = (req, rep) => {
             rep.redirect("error");
         });
 };
-
 //---------------------------------------------------------------------------------------//
-//GET TO USER PROFILE//
+//GET TO USER PROFILE + VERIFY FRIEND//
 
 exports.getUserProfile = (request, response) => {
     const data = request.session.profileData;
@@ -443,9 +391,7 @@ exports.getAnID_user = (req, res) => {
     let token = req.session.skiApiToken;
     let myID = req.session.profileData._id;
     const id = req.params.id;
-
     let friends = [];
-
     const config = {
         method: "get",
         url: "https://ski-api.herokuapp.com/friend",
@@ -459,7 +405,6 @@ exports.getAnID_user = (req, res) => {
         .then(function (resultat) {
             friends = resultat.data.friends;
             console.log(friends);
-
             const config = {
                 method: "get",
                 url: "https://ski-api.herokuapp.com/user/" + id,
@@ -488,8 +433,6 @@ exports.getAnID_user = (req, res) => {
             rep.redirect("error");
         });
 };
-
-
 //---------------------------------------------------------------------------------------//
 //ADD SOMEONE AS A FRIEND//
 
@@ -532,7 +475,6 @@ exports.addAFriend = (req, res) => {
             res.redirect("error");
         });
 }
-
 //---------------------------------------------------------------------------------------//
 //DELETE SOMEONE AS A FRIEND, via SEARCH PAGE//
 
@@ -561,5 +503,5 @@ exports.deleteFriend = (req, res) => {
             console.log(config);
             res.redirect("error");
         });
-};
+}
 //---------------------------------------------------------------------------------------//

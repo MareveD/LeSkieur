@@ -12,6 +12,7 @@
     "axios": "^0.26.0",
     "bootstrap": "^5.1.3",
     "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
@@ -29,6 +30,5 @@
   "bugs": {
     "url": "https://github.com/Ravencypher/projet-prod/issues"
   },
-  "homepage": "https://github.com/Ravencypher/projet-prod#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/Ravencypher/projet-prod#readme"
 }

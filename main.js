@@ -24,13 +24,5 @@ app.use(express.static(path.resolve(__dirname, "public")));
 app.use(router);
 
 app.set("view engine", "ejs");
-/////////////////////////////////////////////////////////////////////////////////////////////
-/*const connectFlash = require("connect-flash");
-app.use(connectFlash());
-app.use((req, res, next) => {
-    res.locals.flashMessages = req.flash();
-    next();
-});*/
-/////////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(port, console.log(`Notre serveur tourne sur http://localhost:${port}`)); 
