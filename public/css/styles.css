@@ -41,7 +41,9 @@
     margin: 0;
     padding: 0;
 }
-
+a{
+    text-decoration: none !important;
+}
 html {
     width: 100%;
     height: 100%;
@@ -129,12 +131,18 @@ nav form {
     width: 10%;
 }
 
-.search-nav {
-    height: 25px !important;
+.bo-katan {
+    height: 30px !important;
     background-color: var(--bg-blur) !important;
     border-radius: var(--radius) !important;
     border: 1px solid var(--lightblue) !important;
-    padding: 5px !important;
+    font-family: GothamL;
+    font-size:0.8rem;
+    text-transform:uppercase;
+}
+
+.bo-katan a{
+    color:var(--lightblue) !important;
 }
 
 .bobaFett {
@@ -434,14 +442,16 @@ input,textarea {
 /*** ***** PROFILE AMI ***** ***/
 
 .friends{
-    width:33%;
+    width:300px;
 }
+
 .friends img{
     width:55px ;
     height:55px;
     border-radius:50%;
     border:3px solid var(--darkblue);
 }
+
 .friends span{
     font-family: GothamB;
     font-size:1em;
@@ -449,6 +459,13 @@ input,textarea {
 .icons-ED{
     width:28px;
     height:28px;
+}
+.baby-yoda{
+    width:200px !important;
+}
+.grogu{
+    width:75px !important;
+    height:75px !important;
 }
 /*** ***** PROFILE SKIEUR ***** ***/
 .container-skieur {
@@ -481,7 +498,7 @@ input,textarea {
 }
 /*** ***** PAGE ERROR ***** ***/
 .box-error {
-    width: 450px;
+    width: 50%;
     padding: 2%;
     margin: 5%;
     backdrop-filter: var(--blur);
@@ -489,7 +506,28 @@ input,textarea {
     border-radius: var(--radius);
     font-size: 1.5em;
 }
-
+.box-error img{
+    max-width:250px;
+    max-height:250px;
+    width:100%;
+    height:100%;
+    min-width:250px;
+    min-height:250px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:1px 1px 10px var(--midblue);
+}
+.box-error p{
+    text-align:center;
+    font-family: GrandH;
+    color: var(--darkblue);
+    font-size:1.5rem;
+}
+.box-error a{
+    text-align:center;
+    font-size:1rem;
+    font-family: GothamB;
+}
 /*** ***** PAGE SPOT FEED ***** ***/
 .container-home,.container-home-2, .container-friends,
 .container-search-friends, .container-feed, .card-front, 

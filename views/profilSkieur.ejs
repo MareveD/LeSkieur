@@ -24,7 +24,10 @@
 
                     <% if(showUser.id === myID) { %>
 
-                        <p>that's me yo</p>
+                        <div class="d-flex flex-column align-items-center">
+                            <img src="/img/itsme.png" alt="c'est moi !" class="baby-yoda">
+                          <p>C'est mon profil !</p>
+                        </div>
         
                       <% } else if (!friendFound) { %>
       
@@ -39,18 +42,20 @@
 
                     <% } else { %>
 
-                        <p class="fw-bold">Deja La! FAUT METTRE UNE ICONE ICI Y'ALL!</p>
-
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <img src="/img/dejaAmis.png" alt="déjà ami" class="baby-yoda">
+                        <p class="fw-bold">Déjà potes de glisse !</p>
+                    </div>
                         <% } %>
                 </div>
             </div>
         </div>
         <div class="row d-flex justify-content-center align-items-center container-friends m-3 p-4">
             <h2 class="text-center">Liste d'ami·es</h2>
-            <div class="col-lg-12 d-flex justify-content-between align-items-center">
+            <div class="col-lg-12 d-flex flex-wrap justify-content-between align-items-center">
                 <% showUser.friends.forEach(e => { %>
-                    <div class="friends d-flex justify-content-around align-items-center m-1">
-                        <img src="/img/icon.jpg" alt="icon utilisateur">
+                    <div class="friends d-flex justify-content-start align-items-center m-1" onclick="location.href='/profilSkieur/<%=e.id%>';" style="cursor: pointer;">
+                        <img src="/img/icon.jpg" alt="icon utilisateur" class="me-4">
                         <span><%= e.name %></span>
                     </div>
                 <% }) %>
